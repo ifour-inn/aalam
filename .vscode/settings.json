@@ -1,0 +1,11 @@
+{
+  "deno.enable": true,
+  "deno.lint": true,
+  // Editor configurations
+  "workbench.settings.editor": "json",
+  "workbench.iconTheme": "material-icon-theme",
+  "workbench.editor.showIcons": false,
+  "editor.suggest.showIcons": true,
+  "outline.icons": false,
+  "material-icon-theme.hidesExplorerArrows": true
+}
