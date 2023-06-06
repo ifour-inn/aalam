@@ -4,7 +4,8 @@
   },
   "imports": {
     "aalam/": "./",
-    "server": "https://deno.land/std@0.187.0/http/server.ts"
+    "server": "https://deno.land/std@0.187.0/http/server.ts",
+    "cookie": "https://deno.land/std@0.190.0/http/cookie.ts"
   },
   "lint": {}
 }

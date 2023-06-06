@@ -14,5 +14,3 @@ export interface ApplicationContext {
   };
   app: Application;
 }
-
-

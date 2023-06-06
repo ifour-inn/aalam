@@ -10,16 +10,31 @@ export default class Application {
   constructor() {
   }
 
+  /**
+   * @param name name by which the service is indentified.
+   * @param service service is expected to be a function.
+   */
   registerService(name: string, service: any) {
     this.services[name] = service;
   }
-  public getService<T>(name: string): T {
+  /**
+   * @param name returns the service if already registered.
+   * @returns
+   */
+  getService<T>(name: string): T {
     return this.services[name];
   }
 
+  /**
+   * @param routes Route definition.
+   */
   registerRoute(routes: Route[]) {
     this.routes.push(...routes);
   }
+  /**
+   * @param path path of the route to be deregistered
+   * @param method method of the route to be deregistered
+   */
   deregisterRoute(path: string, method: string) {
     const index = this.routes.findIndex(
       (r) => r.method == method && r.path == path,
@@ -48,16 +63,6 @@ export default class Application {
       headers[k] = v;
     });
 
-    new URL(request.url).searchParams.forEach((v, k) => {
-      query[k] = v;
-    });
-
-    try {
-      body = await request.json();
-    } catch (_) {
-      //
-    }
-
     if (method == "OPTIONS") {
       return new Response("OK", {
         status: 200,
@@ -71,9 +76,9 @@ export default class Application {
     }
 
     const route = app.routes.find(
-      (rr) =>
-        new URLPattern({ pathname: rr.path }).test(request.url) &&
-        rr.method == method,
+      (r) =>
+        new URLPattern({ pathname: r.path }).test(request.url) &&
+        r.method == method,
     );
 
     if (!route) {
@@ -93,6 +98,16 @@ export default class Application {
           "Content-Type": "plain/text",
         },
       });
+    }
+
+    new URL(request.url).searchParams.forEach((v, k) => {
+      query[k] = v;
+    });
+
+    try {
+      body = await request.json();
+    } catch (_) {
+      //
     }
 
     const routeParam: ApplicationContext = {
